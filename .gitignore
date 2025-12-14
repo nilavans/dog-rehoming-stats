@@ -1,6 +1,6 @@
 .DS_Store
-.RData
-.Rhistory
+*.RData
+*.Rhistory
 Academic Integrity Form (Individual).pdf
-.tex
-.log
+*.tex
+*.log
