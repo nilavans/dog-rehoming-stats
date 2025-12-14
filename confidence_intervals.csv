@@ -1,0 +1,4 @@
+"Breed","n","Mean","SD","SE","df","t_critical","CI_Lower","CI_Upper","Contains_27"
+"Mixed Breed",709,18.97,9.49,0.356,708,1.963,18.27,19.67,"No"
+"Border Collie",78,20.47,11.87,1.344,77,1.991,17.8,23.15,"No"
+"West Highland White Terrier",22,20.23,10.11,2.156,21,2.08,15.74,24.71,"No"
