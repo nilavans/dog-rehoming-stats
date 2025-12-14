@@ -1,0 +1,4 @@
+"Comparison","Mean_Diff","CI_Lower","CI_Upper","Significant"
+"Mixed Breed vs Border Collie",1.51,-4.27,1.26,"No"
+"Mixed Breed vs West Highland White Terrier",1.26,-5.79,3.27,"No"
+"Border Collie vs West Highland White Terrier",-0.25,-4.89,5.39,"No"

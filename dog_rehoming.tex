@@ -1,0 +1,970 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\documentclass[
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={dog\_rehoming.R},
+  pdfauthor={nilavans},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{dog\_rehoming.R}
+\author{nilavans}
+\date{2025-12-11}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Load libraries}
+\FunctionTok{library}\NormalTok{(MASS)}
+
+\CommentTok{\# ===== 1. LOAD DATA =====}
+\FunctionTok{load}\NormalTok{(}\StringTok{\textquotesingle{}dog\_rehoming\_data.RData\textquotesingle{}}\NormalTok{)}
+\NormalTok{df }\OtherTok{\textless{}{-}}\NormalTok{ mysample}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{paste}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"="}\NormalTok{, }\DecValTok{70}\NormalTok{), }\AttributeTok{collapse=}\StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "======================================================================"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"DOG REHOMING TIME ANALYSIS}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## DOG REHOMING TIME ANALYSIS
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{paste}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"="}\NormalTok{, }\DecValTok{70}\NormalTok{), }\AttributeTok{collapse=}\StringTok{""}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "======================================================================"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# ===== 2. DATA INSPECTION =====}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Initial data inspection...}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Initial data inspection...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"  Dimensions: \%d rows x \%d columns}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, }\FunctionTok{nrow}\NormalTok{(df), }\FunctionTok{ncol}\NormalTok{(df)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Dimensions: 825 rows x 7 columns
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"  Variables: \%s}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, }\FunctionTok{paste}\NormalTok{(}\FunctionTok{names}\NormalTok{(df), }\AttributeTok{collapse=}\StringTok{", "}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   Variables: Visited, Rehomed, Health, Breed, Age, Reason, Returned
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# ===== 3. DATA CLEANING =====}
+
+\NormalTok{original\_rows }\OtherTok{\textless{}{-}} \FunctionTok{nrow}\NormalTok{(df)}
+
+\CommentTok{\# Convert to factors}
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{Age }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Age, }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"Puppy"}\NormalTok{, }\StringTok{"Fully grown"}\NormalTok{), }\AttributeTok{ordered =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{Returned }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Returned, }\AttributeTok{levels =} \FunctionTok{c}\NormalTok{(}\StringTok{"No"}\NormalTok{, }\StringTok{"Yes"}\NormalTok{, }\StringTok{"Unknown"}\NormalTok{))}
+\NormalTok{df}\SpecialCharTok{$}\NormalTok{Reason }\OtherTok{\textless{}{-}} \FunctionTok{factor}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Reason)}
+
+\CommentTok{\# Count missing values before removal}
+\NormalTok{na\_breeds }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Breed))}
+\NormalTok{invalid\_rehomed }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Rehomed }\SpecialCharTok{==} \DecValTok{99999} \SpecialCharTok{|}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{Rehomed }\SpecialCharTok{\textless{}} \DecValTok{0}\NormalTok{, }\AttributeTok{na.rm =} \ConstantTok{TRUE}\NormalTok{)}
+
+\CommentTok{\# Remove missing values}
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(df, }\SpecialCharTok{!}\FunctionTok{is.na}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Breed))}
+\NormalTok{df }\OtherTok{\textless{}{-}}\NormalTok{ df[}\SpecialCharTok{!}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Rehomed }\SpecialCharTok{==} \DecValTok{99999} \SpecialCharTok{|}\NormalTok{ df}\SpecialCharTok{$}\NormalTok{Rehomed }\SpecialCharTok{\textless{}} \DecValTok{0}\NormalTok{), ]}
+
+\CommentTok{\# Print cleaning summary}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"DATA CLEANING SUMMARY}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## DATA CLEANING SUMMARY
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"Original rows: \%d}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, original\_rows))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Original rows: 825
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"Removed {-} Missing Breed: \%d}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, na\_breeds))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Removed - Missing Breed: 6
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"Removed {-} Invalid Rehomed: \%d}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, invalid\_rehomed))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Removed - Invalid Rehomed: 10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"Total removed: \%d (\%.1f\%\%)}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, }
+\NormalTok{            original\_rows }\SpecialCharTok{{-}} \FunctionTok{nrow}\NormalTok{(df), }
+\NormalTok{            ((original\_rows }\SpecialCharTok{{-}} \FunctionTok{nrow}\NormalTok{(df))}\SpecialCharTok{/}\NormalTok{original\_rows)}\SpecialCharTok{*}\DecValTok{100}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Total removed: 16 (1.9%)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"Final dataset: \%d rows}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, }\FunctionTok{nrow}\NormalTok{(df)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Final dataset: 809 rows
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{Breeds in dataset: \%d}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, }\FunctionTok{length}\NormalTok{(}\FunctionTok{unique}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Breed))))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Breeds in dataset: 3
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ (b }\ControlFlowTok{in} \FunctionTok{unique}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Breed)) \{}
+  \FunctionTok{cat}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"  {-} \%s: \%d dogs (\%.1f\%\%)}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, }
+\NormalTok{              b, }\FunctionTok{sum}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Breed }\SpecialCharTok{==}\NormalTok{ b), (}\FunctionTok{sum}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Breed }\SpecialCharTok{==}\NormalTok{ b)}\SpecialCharTok{/}\FunctionTok{nrow}\NormalTok{(df))}\SpecialCharTok{*}\DecValTok{100}\NormalTok{))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   - Mixed Breed: 709 dogs (87.6%)
+##   - Border Collie: 78 dogs (9.6%)
+##   - West Highland White Terrier: 22 dogs (2.7%)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# ===== 4. DATA EXPLORATION =====}
+
+\CommentTok{\# Create breed subsets}
+\NormalTok{breeds }\OtherTok{\textless{}{-}} \FunctionTok{unique}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Breed)}
+\NormalTok{breed\_subsets }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{()}
+
+\ControlFlowTok{for}\NormalTok{ (breed }\ControlFlowTok{in}\NormalTok{ breeds) \{}
+\NormalTok{  name }\OtherTok{\textless{}{-}} \FunctionTok{gsub}\NormalTok{(}\StringTok{" +"}\NormalTok{, }\StringTok{"\_"}\NormalTok{, }\FunctionTok{trimws}\NormalTok{(}\FunctionTok{tolower}\NormalTok{(breed)))}
+\NormalTok{  tmp }\OtherTok{\textless{}{-}} \FunctionTok{subset}\NormalTok{(df, Breed }\SpecialCharTok{==}\NormalTok{ breed)}
+  \FunctionTok{rownames}\NormalTok{(tmp) }\OtherTok{\textless{}{-}} \ConstantTok{NULL}
+\NormalTok{  breed\_subsets[[name]] }\OtherTok{\textless{}{-}}\NormalTok{ tmp}
+\NormalTok{\}}
+
+\CommentTok{\# Overall summary}
+\NormalTok{overall\_summary }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{n =} \FunctionTok{nrow}\NormalTok{(df),}
+  \AttributeTok{mean =} \FunctionTok{round}\NormalTok{(}\FunctionTok{mean}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Rehomed), }\DecValTok{2}\NormalTok{),}
+  \AttributeTok{median =} \FunctionTok{round}\NormalTok{(}\FunctionTok{median}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Rehomed), }\DecValTok{2}\NormalTok{),}
+  \AttributeTok{sd =} \FunctionTok{round}\NormalTok{(}\FunctionTok{sd}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Rehomed), }\DecValTok{2}\NormalTok{),}
+  \AttributeTok{min =} \FunctionTok{min}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Rehomed),}
+  \AttributeTok{max =} \FunctionTok{max}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{Rehomed)}
+\NormalTok{)}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"OVERALL SUMMARY STATISTICS}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## OVERALL SUMMARY STATISTICS
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(overall\_summary)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     n  mean median   sd min max
+## 1 809 19.15     18 9.76   0  50
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Summary by breed}
+\NormalTok{breed\_summary }\OtherTok{\textless{}{-}} \FunctionTok{aggregate}\NormalTok{(Rehomed }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Breed, }\AttributeTok{data =}\NormalTok{ df,}
+                           \AttributeTok{FUN =} \ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{c}\NormalTok{(}
+                             \AttributeTok{n =} \FunctionTok{length}\NormalTok{(x),}
+                             \AttributeTok{mean =} \FunctionTok{round}\NormalTok{(}\FunctionTok{mean}\NormalTok{(x), }\DecValTok{2}\NormalTok{),}
+                             \AttributeTok{median =} \FunctionTok{round}\NormalTok{(}\FunctionTok{median}\NormalTok{(x), }\DecValTok{2}\NormalTok{),}
+                             \AttributeTok{sd =} \FunctionTok{round}\NormalTok{(}\FunctionTok{sd}\NormalTok{(x), }\DecValTok{2}\NormalTok{),}
+                             \AttributeTok{min =} \FunctionTok{min}\NormalTok{(x),}
+                             \AttributeTok{max =} \FunctionTok{max}\NormalTok{(x)}
+\NormalTok{                           ))}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"SUMMARY BY BREED}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## SUMMARY BY BREED
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(breed\_summary)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                         Breed Rehomed.n Rehomed.mean Rehomed.median Rehomed.sd
+## 1               Border Collie     78.00        20.47          18.00      11.87
+## 2                 Mixed Breed    709.00        18.97          17.00       9.49
+## 3 West Highland White Terrier     22.00        20.23          18.50      10.11
+##   Rehomed.min Rehomed.max
+## 1        0.00       50.00
+## 2        0.00       50.00
+## 3        7.00       48.00
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Visualizations}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Creating exploratory plots...}\SpecialCharTok{\textbackslash{}n\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Creating exploratory plots...
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Boxplot}
+\FunctionTok{boxplot}\NormalTok{(Rehomed }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Breed, }\AttributeTok{data =}\NormalTok{ df, }
+        \AttributeTok{xlab =} \StringTok{"Breed"}\NormalTok{, }
+        \AttributeTok{ylab =} \StringTok{"Rehoming Time (weeks)"}\NormalTok{,}
+        \AttributeTok{main =} \StringTok{"Rehoming Time by Breed"}\NormalTok{,}
+        \AttributeTok{col =} \StringTok{"lightblue"}\NormalTok{)}
+\FunctionTok{abline}\NormalTok{(}\AttributeTok{h =} \DecValTok{27}\NormalTok{, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\FunctionTok{legend}\NormalTok{(}\StringTok{"topright"}\NormalTok{, }\AttributeTok{legend =} \StringTok{"Previous research (27 weeks)"}\NormalTok{, }
+       \AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{dog_rehoming_files/figure-latex/unnamed-chunk-1-1.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Histograms}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+\ControlFlowTok{for}\NormalTok{ (breed\_name }\ControlFlowTok{in} \FunctionTok{names}\NormalTok{(breed\_subsets)) \{}
+\NormalTok{  readable\_name }\OtherTok{\textless{}{-}}\NormalTok{ tools}\SpecialCharTok{::}\FunctionTok{toTitleCase}\NormalTok{(}\FunctionTok{gsub}\NormalTok{(}\StringTok{"\_"}\NormalTok{, }\StringTok{" "}\NormalTok{, breed\_name))}
+  \FunctionTok{hist}\NormalTok{(breed\_subsets[[breed\_name]]}\SpecialCharTok{$}\NormalTok{Rehomed,}
+       \AttributeTok{main =}\NormalTok{ readable\_name,}
+       \AttributeTok{xlab =} \StringTok{"Rehoming Time (weeks)"}\NormalTok{,}
+       \AttributeTok{col =} \StringTok{"lightblue"}\NormalTok{,}
+       \AttributeTok{border =} \StringTok{"white"}\NormalTok{,}
+       \AttributeTok{breaks =} \DecValTok{15}\NormalTok{,}
+       \AttributeTok{xlim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{50}\NormalTok{))}
+  \FunctionTok{abline}\NormalTok{(}\AttributeTok{v =} \DecValTok{27}\NormalTok{, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\NormalTok{\}}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{dog_rehoming_files/figure-latex/unnamed-chunk-1-2.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Q{-}Q plots}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{))}
+\ControlFlowTok{for}\NormalTok{ (breed\_name }\ControlFlowTok{in} \FunctionTok{names}\NormalTok{(breed\_subsets)) \{}
+\NormalTok{  readable\_name }\OtherTok{\textless{}{-}}\NormalTok{ tools}\SpecialCharTok{::}\FunctionTok{toTitleCase}\NormalTok{(}\FunctionTok{gsub}\NormalTok{(}\StringTok{"\_"}\NormalTok{, }\StringTok{" "}\NormalTok{, breed\_name))}
+\NormalTok{  x }\OtherTok{\textless{}{-}}\NormalTok{ breed\_subsets[[breed\_name]]}\SpecialCharTok{$}\NormalTok{Rehomed}
+  \FunctionTok{qqnorm}\NormalTok{(x, }\AttributeTok{main =} \FunctionTok{paste}\NormalTok{(}\StringTok{"Normal Q{-}Q:"}\NormalTok{, readable\_name), }
+         \AttributeTok{ylab =} \StringTok{"Sample quantiles"}\NormalTok{)}
+  \FunctionTok{qqline}\NormalTok{(x, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{dog_rehoming_files/figure-latex/unnamed-chunk-1-3.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+
+\CommentTok{\# ===== 5. DISTRIBUTION MODELING =====}
+
+\NormalTok{fit\_distribution }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(data, breed\_name) \{}
+  \FunctionTok{paste}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"="}\NormalTok{, }\DecValTok{70}\NormalTok{), }\AttributeTok{collapse=}\StringTok{""}\NormalTok{)}
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"DISTRIBUTION MODELING:"}\NormalTok{, breed\_name, }\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+  \FunctionTok{paste}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"="}\NormalTok{, }\DecValTok{70}\NormalTok{), }\AttributeTok{collapse=}\StringTok{""}\NormalTok{)}
+  
+\NormalTok{  rehomed\_times }\OtherTok{\textless{}{-}}\NormalTok{ data}\SpecialCharTok{$}\NormalTok{Rehomed}
+\NormalTok{  n }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(rehomed\_times)}
+\NormalTok{  mean\_val }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(rehomed\_times)}
+\NormalTok{  sd\_val }\OtherTok{\textless{}{-}} \FunctionTok{sd}\NormalTok{(rehomed\_times)}
+  
+  \FunctionTok{cat}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"Sample size: n = \%d}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, n))}
+  \FunctionTok{cat}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"Mean: \%.2f weeks}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, mean\_val))}
+  \FunctionTok{cat}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"SD: \%.2f weeks}\SpecialCharTok{\textbackslash{}n\textbackslash{}n}\StringTok{"}\NormalTok{, sd\_val))}
+  
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"Normal Distribution N(mu, sigma\^{}2):}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+  \FunctionTok{cat}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"  mu{-}hat = \%.2f weeks}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, mean\_val))}
+  \FunctionTok{cat}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"  sigma{-}hat = \%.2f weeks}\SpecialCharTok{\textbackslash{}n\textbackslash{}n}\StringTok{"}\NormalTok{, sd\_val))}
+  
+  \CommentTok{\# Shapiro{-}Wilk test}
+  \ControlFlowTok{if}\NormalTok{ (n }\SpecialCharTok{\textgreater{}=} \DecValTok{3} \SpecialCharTok{\&\&}\NormalTok{ n }\SpecialCharTok{\textless{}=} \DecValTok{5000}\NormalTok{) \{}
+\NormalTok{    shapiro\_test }\OtherTok{\textless{}{-}} \FunctionTok{shapiro.test}\NormalTok{(rehomed\_times)}
+    \FunctionTok{cat}\NormalTok{(}\StringTok{"Shapiro{-}Wilk Normality Test:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+    \FunctionTok{cat}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"  W statistic = \%.4f}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, shapiro\_test}\SpecialCharTok{$}\NormalTok{statistic))}
+    
+    \ControlFlowTok{if}\NormalTok{ (shapiro\_test}\SpecialCharTok{$}\NormalTok{p.value }\SpecialCharTok{\textless{}} \FloatTok{0.001}\NormalTok{) \{}
+      \FunctionTok{cat}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"  p{-}value \textless{} 0.001}\SpecialCharTok{\textbackslash{}n\textbackslash{}n}\StringTok{"}\NormalTok{))}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{}
+      \FunctionTok{cat}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"  p{-}value = \%.4f}\SpecialCharTok{\textbackslash{}n\textbackslash{}n}\StringTok{"}\NormalTok{, shapiro\_test}\SpecialCharTok{$}\NormalTok{p.value))}
+\NormalTok{    \}}
+    
+    \FunctionTok{cat}\NormalTok{(}\StringTok{"Interpretation:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+    \ControlFlowTok{if}\NormalTok{ (shapiro\_test}\SpecialCharTok{$}\NormalTok{p.value }\SpecialCharTok{\textgreater{}} \FloatTok{0.05}\NormalTok{) \{}
+      \FunctionTok{cat}\NormalTok{(}\StringTok{"  Data is consistent with normality (p \textgreater{} 0.05)}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{}
+      \FunctionTok{cat}\NormalTok{(}\StringTok{"  Data departs from normality (p \textless{} 0.05)}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+      \ControlFlowTok{if}\NormalTok{ (n }\SpecialCharTok{\textgreater{}} \DecValTok{100}\NormalTok{) \{}
+        \FunctionTok{cat}\NormalTok{(}\StringTok{"  Note: Large samples make test very sensitive.}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+        \FunctionTok{cat}\NormalTok{(}\StringTok{"        Normal approximation may still be reasonable.}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{      \}}
+\NormalTok{    \}}
+\NormalTok{  \}}
+  
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+  
+  \FunctionTok{return}\NormalTok{(}\FunctionTok{list}\NormalTok{(}
+    \AttributeTok{n =}\NormalTok{ n,}
+    \AttributeTok{mu =}\NormalTok{ mean\_val,}
+    \AttributeTok{sigma =}\NormalTok{ sd\_val,}
+    \AttributeTok{w\_stat =}\NormalTok{ shapiro\_test}\SpecialCharTok{$}\NormalTok{statistic,}
+    \AttributeTok{p\_value =}\NormalTok{ shapiro\_test}\SpecialCharTok{$}\NormalTok{p.value}
+\NormalTok{  ))}
+\NormalTok{\}}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"DISTRIBUTION MODELING ANALYSIS}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## DISTRIBUTION MODELING ANALYSIS
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{model\_results }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{()}
+\ControlFlowTok{for}\NormalTok{ (breed\_name }\ControlFlowTok{in} \FunctionTok{names}\NormalTok{(breed\_subsets)) \{}
+\NormalTok{  readable\_name }\OtherTok{\textless{}{-}}\NormalTok{ tools}\SpecialCharTok{::}\FunctionTok{toTitleCase}\NormalTok{(}\FunctionTok{gsub}\NormalTok{(}\StringTok{"\_"}\NormalTok{, }\StringTok{" "}\NormalTok{, breed\_name))}
+\NormalTok{  model\_results[[breed\_name]] }\OtherTok{\textless{}{-}} \FunctionTok{fit\_distribution}\NormalTok{(}
+\NormalTok{    breed\_subsets[[breed\_name]], }
+\NormalTok{    readable\_name}
+\NormalTok{  )}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## DISTRIBUTION MODELING: Mixed Breed 
+## Sample size: n = 709
+## Mean: 18.97 weeks
+## SD: 9.49 weeks
+## 
+## Normal Distribution N(mu, sigma^2):
+##   mu-hat = 18.97 weeks
+##   sigma-hat = 9.49 weeks
+## 
+## Shapiro-Wilk Normality Test:
+##   W statistic = 0.9711
+##   p-value < 0.001
+## 
+## Interpretation:
+##   Data departs from normality (p < 0.05)
+##   Note: Large samples make test very sensitive.
+##         Normal approximation may still be reasonable.
+## 
+## DISTRIBUTION MODELING: Border Collie 
+## Sample size: n = 78
+## Mean: 20.47 weeks
+## SD: 11.87 weeks
+## 
+## Normal Distribution N(mu, sigma^2):
+##   mu-hat = 20.47 weeks
+##   sigma-hat = 11.87 weeks
+## 
+## Shapiro-Wilk Normality Test:
+##   W statistic = 0.9650
+##   p-value = 0.0306
+## 
+## Interpretation:
+##   Data departs from normality (p < 0.05)
+## 
+## DISTRIBUTION MODELING: West Highland White Terrier 
+## Sample size: n = 22
+## Mean: 20.23 weeks
+## SD: 10.11 weeks
+## 
+## Normal Distribution N(mu, sigma^2):
+##   mu-hat = 20.23 weeks
+##   sigma-hat = 10.11 weeks
+## 
+## Shapiro-Wilk Normality Test:
+##   W statistic = 0.9025
+##   p-value = 0.0333
+## 
+## Interpretation:
+##   Data departs from normality (p < 0.05)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Visualise fitted distributions}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+\ControlFlowTok{for}\NormalTok{ (breed\_name }\ControlFlowTok{in} \FunctionTok{names}\NormalTok{(breed\_subsets)) \{}
+\NormalTok{  readable\_name }\OtherTok{\textless{}{-}}\NormalTok{ tools}\SpecialCharTok{::}\FunctionTok{toTitleCase}\NormalTok{(}\FunctionTok{gsub}\NormalTok{(}\StringTok{"\_"}\NormalTok{, }\StringTok{" "}\NormalTok{, breed\_name))}
+\NormalTok{  data }\OtherTok{\textless{}{-}}\NormalTok{ breed\_subsets[[breed\_name]]}
+\NormalTok{  result }\OtherTok{\textless{}{-}}\NormalTok{ model\_results[[breed\_name]]}
+  
+  \FunctionTok{hist}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Rehomed, }
+       \AttributeTok{probability =} \ConstantTok{TRUE}\NormalTok{, }
+       \AttributeTok{breaks =} \DecValTok{15}\NormalTok{,}
+       \AttributeTok{col =} \StringTok{"lightblue"}\NormalTok{, }
+       \AttributeTok{border =} \StringTok{"white"}\NormalTok{,}
+       \AttributeTok{main =}\NormalTok{ readable\_name,}
+       \AttributeTok{xlab =} \StringTok{"Rehoming Time (weeks)"}\NormalTok{,}
+       \AttributeTok{ylab =} \StringTok{"Density"}\NormalTok{)}
+  
+\NormalTok{  x }\OtherTok{\textless{}{-}} \FunctionTok{seq}\NormalTok{(}\DecValTok{0}\NormalTok{, }\FunctionTok{max}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Rehomed), }\AttributeTok{length.out =} \DecValTok{200}\NormalTok{)}
+  \FunctionTok{lines}\NormalTok{(x, }\FunctionTok{dnorm}\NormalTok{(x, }\AttributeTok{mean =}\NormalTok{ result}\SpecialCharTok{$}\NormalTok{mu, }\AttributeTok{sd =}\NormalTok{ result}\SpecialCharTok{$}\NormalTok{sigma), }
+        \AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{)}
+  
+  \FunctionTok{text}\NormalTok{(}\FunctionTok{max}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Rehomed) }\SpecialCharTok{*} \FloatTok{0.65}\NormalTok{, }
+       \FunctionTok{max}\NormalTok{(}\FunctionTok{hist}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Rehomed, }\AttributeTok{plot=}\ConstantTok{FALSE}\NormalTok{)}\SpecialCharTok{$}\NormalTok{density) }\SpecialCharTok{*} \FloatTok{0.85}\NormalTok{,}
+       \FunctionTok{sprintf}\NormalTok{(}\StringTok{"N(\%.1f, \%.1f\^{}2)}\SpecialCharTok{\textbackslash{}n}\StringTok{W = \%.3f}\SpecialCharTok{\textbackslash{}n}\StringTok{p = \%.3f"}\NormalTok{, }
+\NormalTok{               result}\SpecialCharTok{$}\NormalTok{mu, result}\SpecialCharTok{$}\NormalTok{sigma, result}\SpecialCharTok{$}\NormalTok{w\_stat, result}\SpecialCharTok{$}\NormalTok{p\_value),}
+       \AttributeTok{cex =} \FloatTok{0.75}\NormalTok{, }\AttributeTok{pos =} \DecValTok{4}\NormalTok{)}
+  
+  \FunctionTok{legend}\NormalTok{(}\StringTok{"topright"}\NormalTok{, }\AttributeTok{legend =} \StringTok{"Fitted Normal"}\NormalTok{, }
+         \AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{, }\AttributeTok{cex =} \FloatTok{0.8}\NormalTok{)}
+\NormalTok{\}}
+\FunctionTok{par}\NormalTok{(}\AttributeTok{mfrow =} \FunctionTok{c}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{dog_rehoming_files/figure-latex/unnamed-chunk-1-4.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# ===== 6. INFERENCE (CONFIDENCE INTERVALS) =====}
+
+\NormalTok{calculate\_ci }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(data, }\AttributeTok{conf\_level =} \FloatTok{0.95}\NormalTok{) \{}
+\NormalTok{  n }\OtherTok{\textless{}{-}} \FunctionTok{nrow}\NormalTok{(data)}
+\NormalTok{  mean\_val }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Rehomed)}
+\NormalTok{  sd\_val }\OtherTok{\textless{}{-}} \FunctionTok{sd}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{Rehomed)}
+\NormalTok{  se }\OtherTok{\textless{}{-}}\NormalTok{ sd\_val }\SpecialCharTok{/} \FunctionTok{sqrt}\NormalTok{(n)}
+\NormalTok{  df }\OtherTok{\textless{}{-}}\NormalTok{ n }\SpecialCharTok{{-}} \DecValTok{1}
+  
+\NormalTok{  alpha }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ conf\_level}
+\NormalTok{  t\_star }\OtherTok{\textless{}{-}} \FunctionTok{qt}\NormalTok{(}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ alpha}\SpecialCharTok{/}\DecValTok{2}\NormalTok{, }\AttributeTok{df =}\NormalTok{ df)}
+  
+\NormalTok{  ci\_lower }\OtherTok{\textless{}{-}}\NormalTok{ mean\_val }\SpecialCharTok{{-}}\NormalTok{ t\_star }\SpecialCharTok{*}\NormalTok{ se}
+\NormalTok{  ci\_upper }\OtherTok{\textless{}{-}}\NormalTok{ mean\_val }\SpecialCharTok{+}\NormalTok{ t\_star }\SpecialCharTok{*}\NormalTok{ se}
+\NormalTok{  margin\_error }\OtherTok{\textless{}{-}}\NormalTok{ t\_star }\SpecialCharTok{*}\NormalTok{ se}
+  
+  \FunctionTok{return}\NormalTok{(}\FunctionTok{list}\NormalTok{(}
+    \AttributeTok{n =}\NormalTok{ n,}
+    \AttributeTok{mean =}\NormalTok{ mean\_val,}
+    \AttributeTok{sd =}\NormalTok{ sd\_val,}
+    \AttributeTok{se =}\NormalTok{ se,}
+    \AttributeTok{df =}\NormalTok{ df,}
+    \AttributeTok{t\_star =}\NormalTok{ t\_star,}
+    \AttributeTok{ci\_lower =}\NormalTok{ ci\_lower,}
+    \AttributeTok{ci\_upper =}\NormalTok{ ci\_upper,}
+    \AttributeTok{margin\_error =}\NormalTok{ margin\_error,}
+    \AttributeTok{contains\_27 =}\NormalTok{ (ci\_lower }\SpecialCharTok{\textless{}=} \DecValTok{27} \SpecialCharTok{\&}\NormalTok{ ci\_upper }\SpecialCharTok{\textgreater{}=} \DecValTok{27}\NormalTok{)}
+\NormalTok{  ))}
+\NormalTok{\}}
+
+\NormalTok{ci\_results }\OtherTok{\textless{}{-}} \FunctionTok{lapply}\NormalTok{(breed\_subsets, calculate\_ci, }\AttributeTok{conf\_level =} \FloatTok{0.95}\NormalTok{)}
+
+\CommentTok{\# Create summary table}
+\NormalTok{ci\_table }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{Breed =} \FunctionTok{sapply}\NormalTok{(}\FunctionTok{names}\NormalTok{(ci\_results), }\ControlFlowTok{function}\NormalTok{(x) tools}\SpecialCharTok{::}\FunctionTok{toTitleCase}\NormalTok{(}\FunctionTok{gsub}\NormalTok{(}\StringTok{"\_"}\NormalTok{, }\StringTok{" "}\NormalTok{, x))),}
+  \AttributeTok{n =} \FunctionTok{sapply}\NormalTok{(ci\_results, }\ControlFlowTok{function}\NormalTok{(x) x}\SpecialCharTok{$}\NormalTok{n),}
+  \AttributeTok{Mean =} \FunctionTok{sapply}\NormalTok{(ci\_results, }\ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{round}\NormalTok{(x}\SpecialCharTok{$}\NormalTok{mean, }\DecValTok{2}\NormalTok{)),}
+  \AttributeTok{SD =} \FunctionTok{sapply}\NormalTok{(ci\_results, }\ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{round}\NormalTok{(x}\SpecialCharTok{$}\NormalTok{sd, }\DecValTok{2}\NormalTok{)),}
+  \AttributeTok{SE =} \FunctionTok{sapply}\NormalTok{(ci\_results, }\ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{round}\NormalTok{(x}\SpecialCharTok{$}\NormalTok{se, }\DecValTok{3}\NormalTok{)),}
+  \AttributeTok{df =} \FunctionTok{sapply}\NormalTok{(ci\_results, }\ControlFlowTok{function}\NormalTok{(x) x}\SpecialCharTok{$}\NormalTok{df),}
+  \AttributeTok{t\_critical =} \FunctionTok{sapply}\NormalTok{(ci\_results, }\ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{round}\NormalTok{(x}\SpecialCharTok{$}\NormalTok{t\_star, }\DecValTok{3}\NormalTok{)),}
+  \AttributeTok{CI\_Lower =} \FunctionTok{sapply}\NormalTok{(ci\_results, }\ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{round}\NormalTok{(x}\SpecialCharTok{$}\NormalTok{ci\_lower, }\DecValTok{2}\NormalTok{)),}
+  \AttributeTok{CI\_Upper =} \FunctionTok{sapply}\NormalTok{(ci\_results, }\ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{round}\NormalTok{(x}\SpecialCharTok{$}\NormalTok{ci\_upper, }\DecValTok{2}\NormalTok{)),}
+  \AttributeTok{Contains\_27 =} \FunctionTok{sapply}\NormalTok{(ci\_results, }\ControlFlowTok{function}\NormalTok{(x) }\FunctionTok{ifelse}\NormalTok{(x}\SpecialCharTok{$}\NormalTok{contains\_27, }\StringTok{"Yes"}\NormalTok{, }\StringTok{"No"}\NormalTok{))}
+\NormalTok{)}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"CONFIDENCE INTERVALS FOR MEAN REHOMING TIME}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## CONFIDENCE INTERVALS FOR MEAN REHOMING TIME
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(ci\_table)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                                   Breed   n  Mean    SD    SE
+## mixed_breed                                 Mixed Breed 709 18.97  9.49 0.356
+## border_collie                             Border Collie  78 20.47 11.87 1.344
+## west_highland_white_terrier West Highland White Terrier  22 20.23 10.11 2.156
+##                              df t_critical CI_Lower CI_Upper Contains_27
+## mixed_breed                 708      1.963    18.27    19.67          No
+## border_collie                77      1.991    17.80    23.15          No
+## west_highland_white_terrier  21      2.080    15.74    24.71          No
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Detailed results}
+\FunctionTok{cat}\NormalTok{(}\StringTok{"DETAILED RESULTS}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## DETAILED RESULTS
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\ControlFlowTok{for}\NormalTok{ (breed\_name }\ControlFlowTok{in} \FunctionTok{names}\NormalTok{(ci\_results)) \{}
+\NormalTok{  result }\OtherTok{\textless{}{-}}\NormalTok{ ci\_results[[breed\_name]]}
+\NormalTok{  readable\_name }\OtherTok{\textless{}{-}}\NormalTok{ tools}\SpecialCharTok{::}\FunctionTok{toTitleCase}\NormalTok{(}\FunctionTok{gsub}\NormalTok{(}\StringTok{"\_"}\NormalTok{, }\StringTok{" "}\NormalTok{, breed\_name))}
+  
+  \FunctionTok{cat}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"\%s:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, readable\_name))}
+  \FunctionTok{cat}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"  n = \%d, Mean = \%.2f weeks, SD = \%.2f weeks}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, }
+\NormalTok{              result}\SpecialCharTok{$}\NormalTok{n, result}\SpecialCharTok{$}\NormalTok{mean, result}\SpecialCharTok{$}\NormalTok{sd))}
+  \FunctionTok{cat}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"  95\%\% CI: (\%.2f, \%.2f) weeks}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, result}\SpecialCharTok{$}\NormalTok{ci\_lower, result}\SpecialCharTok{$}\NormalTok{ci\_upper))}
+  
+  \ControlFlowTok{if}\NormalTok{ (}\SpecialCharTok{!}\NormalTok{result}\SpecialCharTok{$}\NormalTok{contains\_27) \{}
+    \ControlFlowTok{if}\NormalTok{ (result}\SpecialCharTok{$}\NormalTok{ci\_upper }\SpecialCharTok{\textless{}} \DecValTok{27}\NormalTok{) \{}
+      \FunctionTok{cat}\NormalTok{(}\StringTok{"  {-}\textgreater{} Significantly LOWER than 27 weeks (p \textless{} 0.05)}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{}
+      \FunctionTok{cat}\NormalTok{(}\StringTok{"  {-}\textgreater{} Significantly HIGHER than 27 weeks (p \textless{} 0.05)}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{    \}}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+    \FunctionTok{cat}\NormalTok{(}\StringTok{"  {-}\textgreater{} NOT significantly different from 27 weeks}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{  \}}
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Mixed Breed:
+##   n = 709, Mean = 18.97 weeks, SD = 9.49 weeks
+##   95% CI: (18.27, 19.67) weeks
+##   -> Significantly LOWER than 27 weeks (p < 0.05)
+## 
+## Border Collie:
+##   n = 78, Mean = 20.47 weeks, SD = 11.87 weeks
+##   95% CI: (17.80, 23.15) weeks
+##   -> Significantly LOWER than 27 weeks (p < 0.05)
+## 
+## West Highland White Terrier:
+##   n = 22, Mean = 20.23 weeks, SD = 10.11 weeks
+##   95% CI: (15.74, 24.71) weeks
+##   -> Significantly LOWER than 27 weeks (p < 0.05)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Visualise CIs}
+\NormalTok{plot\_ci }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(ci\_table) \{}
+  \FunctionTok{par}\NormalTok{(}\AttributeTok{mar =} \FunctionTok{c}\NormalTok{(}\DecValTok{5}\NormalTok{, }\DecValTok{10}\NormalTok{, }\DecValTok{4}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+\NormalTok{  ci\_table }\OtherTok{\textless{}{-}}\NormalTok{ ci\_table[}\FunctionTok{order}\NormalTok{(ci\_table}\SpecialCharTok{$}\NormalTok{Mean), ]}
+  
+  \FunctionTok{plot}\NormalTok{(ci\_table}\SpecialCharTok{$}\NormalTok{Mean, }\DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(ci\_table), }
+       \AttributeTok{xlim =} \FunctionTok{c}\NormalTok{(}\FunctionTok{min}\NormalTok{(ci\_table}\SpecialCharTok{$}\NormalTok{CI\_Lower) }\SpecialCharTok{{-}} \DecValTok{2}\NormalTok{, }\DecValTok{30}\NormalTok{),}
+       \AttributeTok{ylim =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\FunctionTok{nrow}\NormalTok{(ci\_table) }\SpecialCharTok{+} \FloatTok{0.5}\NormalTok{),}
+       \AttributeTok{xlab =} \StringTok{"Rehoming Time (weeks)"}\NormalTok{,}
+       \AttributeTok{ylab =} \StringTok{""}\NormalTok{,}
+       \AttributeTok{yaxt =} \StringTok{"n"}\NormalTok{,}
+       \AttributeTok{main =} \StringTok{"95\% Confidence Intervals for Mean Rehoming Time"}\NormalTok{,}
+       \AttributeTok{pch =} \DecValTok{19}\NormalTok{, }\AttributeTok{cex =} \FloatTok{1.5}\NormalTok{, }\AttributeTok{col =} \StringTok{"darkblue"}\NormalTok{)}
+  
+  \FunctionTok{axis}\NormalTok{(}\DecValTok{2}\NormalTok{, }\AttributeTok{at =} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(ci\_table), }\AttributeTok{labels =}\NormalTok{ ci\_table}\SpecialCharTok{$}\NormalTok{Breed, }\AttributeTok{las =} \DecValTok{1}\NormalTok{)}
+  
+  \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{nrow}\NormalTok{(ci\_table)) \{}
+    \FunctionTok{lines}\NormalTok{(}\FunctionTok{c}\NormalTok{(ci\_table}\SpecialCharTok{$}\NormalTok{CI\_Lower[i], ci\_table}\SpecialCharTok{$}\NormalTok{CI\_Upper[i]), }\FunctionTok{c}\NormalTok{(i, i), }
+          \AttributeTok{lwd =} \DecValTok{3}\NormalTok{, }\AttributeTok{col =} \StringTok{"darkblue"}\NormalTok{)}
+    \FunctionTok{points}\NormalTok{(}\FunctionTok{c}\NormalTok{(ci\_table}\SpecialCharTok{$}\NormalTok{CI\_Lower[i], ci\_table}\SpecialCharTok{$}\NormalTok{CI\_Upper[i]), }\FunctionTok{c}\NormalTok{(i, i), }
+           \AttributeTok{pch =} \StringTok{"|"}\NormalTok{, }\AttributeTok{cex =} \DecValTok{2}\NormalTok{, }\AttributeTok{col =} \StringTok{"darkblue"}\NormalTok{)}
+\NormalTok{  \}}
+  
+  \FunctionTok{abline}\NormalTok{(}\AttributeTok{v =} \DecValTok{27}\NormalTok{, }\AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{lwd =} \DecValTok{2}\NormalTok{, }\AttributeTok{lty =} \DecValTok{2}\NormalTok{)}
+  \FunctionTok{text}\NormalTok{(}\DecValTok{27}\NormalTok{, }\FunctionTok{nrow}\NormalTok{(ci\_table) }\SpecialCharTok{+} \FloatTok{0.3}\NormalTok{, }\StringTok{"Previous}\SpecialCharTok{\textbackslash{}n}\StringTok{Research}\SpecialCharTok{\textbackslash{}n}\StringTok{(27 weeks)"}\NormalTok{, }
+       \AttributeTok{col =} \StringTok{"red"}\NormalTok{, }\AttributeTok{cex =} \FloatTok{0.9}\NormalTok{)}
+  \FunctionTok{grid}\NormalTok{(}\AttributeTok{nx =} \ConstantTok{NULL}\NormalTok{, }\AttributeTok{ny =} \ConstantTok{NA}\NormalTok{, }\AttributeTok{col =} \StringTok{"lightgray"}\NormalTok{, }\AttributeTok{lty =} \StringTok{"dotted"}\NormalTok{)}
+\NormalTok{\}}
+
+\FunctionTok{plot\_ci}\NormalTok{(ci\_table)}
+\end{Highlighting}
+\end{Shaded}
+
+\pandocbounded{\includegraphics[keepaspectratio]{dog_rehoming_files/figure-latex/unnamed-chunk-1-5.pdf}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# ===== 7. COMPARISON BETWEEN BREEDS =====}
+
+\NormalTok{compare\_breeds }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(data1, data2, breed1\_name, breed2\_name) \{}
+  \FunctionTok{paste}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"="}\NormalTok{, }\DecValTok{70}\NormalTok{), }\AttributeTok{collapse=}\StringTok{""}\NormalTok{)}
+  \FunctionTok{cat}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"\%s vs \%s}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, breed1\_name, breed2\_name))}
+  \FunctionTok{paste}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\StringTok{"="}\NormalTok{, }\DecValTok{70}\NormalTok{), }\AttributeTok{collapse=}\StringTok{""}\NormalTok{)}
+  
+  \CommentTok{\# Welch\textquotesingle{}s t{-}test (unequal variances)}
+\NormalTok{  test\_result }\OtherTok{\textless{}{-}} \FunctionTok{t.test}\NormalTok{(data1}\SpecialCharTok{$}\NormalTok{Rehomed, data2}\SpecialCharTok{$}\NormalTok{Rehomed, }
+                        \AttributeTok{var.equal =} \ConstantTok{FALSE}\NormalTok{, }
+                        \AttributeTok{conf.level =} \FloatTok{0.95}\NormalTok{)}
+  
+  \FunctionTok{cat}\NormalTok{(}\StringTok{"Method: Welch\textquotesingle{}s t{-}test (unequal variances assumed)}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+  \FunctionTok{cat}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"95\%\% CI for difference (mu1 {-} mu2): (\%.2f, \%.2f) weeks}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, }
+\NormalTok{              test\_result}\SpecialCharTok{$}\NormalTok{conf.int[}\DecValTok{1}\NormalTok{], test\_result}\SpecialCharTok{$}\NormalTok{conf.int[}\DecValTok{2}\NormalTok{]))}
+  \FunctionTok{cat}\NormalTok{(}\FunctionTok{sprintf}\NormalTok{(}\StringTok{"Mean difference: \%.2f weeks}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{, }
+              \FunctionTok{mean}\NormalTok{(data1}\SpecialCharTok{$}\NormalTok{Rehomed) }\SpecialCharTok{{-}} \FunctionTok{mean}\NormalTok{(data2}\SpecialCharTok{$}\NormalTok{Rehomed)))}
+  
+  \ControlFlowTok{if}\NormalTok{ (test\_result}\SpecialCharTok{$}\NormalTok{conf.int[}\DecValTok{1}\NormalTok{] }\SpecialCharTok{\textless{}=} \DecValTok{0} \SpecialCharTok{\&\&}\NormalTok{ test\_result}\SpecialCharTok{$}\NormalTok{conf.int[}\DecValTok{2}\NormalTok{] }\SpecialCharTok{\textgreater{}=} \DecValTok{0}\NormalTok{) \{}
+    \FunctionTok{cat}\NormalTok{(}\StringTok{"Conclusion: No significant difference (CI contains 0)}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{  \} }\ControlFlowTok{else}\NormalTok{ \{}
+    \FunctionTok{cat}\NormalTok{(}\StringTok{"Conclusion: Significant difference (CI excludes 0)}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\NormalTok{  \}}
+  
+  \FunctionTok{return}\NormalTok{(test\_result)}
+\NormalTok{\}}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"PAIRWISE BREED COMPARISONS}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## PAIRWISE BREED COMPARISONS
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{breed\_names\_list }\OtherTok{\textless{}{-}} \FunctionTok{names}\NormalTok{(breed\_subsets)}
+\NormalTok{comparison\_results }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{()}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{(}\FunctionTok{length}\NormalTok{(breed\_names\_list)}\SpecialCharTok{{-}}\DecValTok{1}\NormalTok{)) \{}
+  \ControlFlowTok{for}\NormalTok{ (j }\ControlFlowTok{in}\NormalTok{ (i}\SpecialCharTok{+}\DecValTok{1}\NormalTok{)}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(breed\_names\_list)) \{}
+\NormalTok{    breed1 }\OtherTok{\textless{}{-}}\NormalTok{ breed\_names\_list[i]}
+\NormalTok{    breed2 }\OtherTok{\textless{}{-}}\NormalTok{ breed\_names\_list[j]}
+    
+\NormalTok{    name1 }\OtherTok{\textless{}{-}}\NormalTok{ tools}\SpecialCharTok{::}\FunctionTok{toTitleCase}\NormalTok{(}\FunctionTok{gsub}\NormalTok{(}\StringTok{"\_"}\NormalTok{, }\StringTok{" "}\NormalTok{, breed1))}
+\NormalTok{    name2 }\OtherTok{\textless{}{-}}\NormalTok{ tools}\SpecialCharTok{::}\FunctionTok{toTitleCase}\NormalTok{(}\FunctionTok{gsub}\NormalTok{(}\StringTok{"\_"}\NormalTok{, }\StringTok{" "}\NormalTok{, breed2))}
+    
+\NormalTok{    comparison\_name }\OtherTok{\textless{}{-}} \FunctionTok{paste}\NormalTok{(breed1, }\StringTok{"vs"}\NormalTok{, breed2, }\AttributeTok{sep =} \StringTok{"\_"}\NormalTok{)}
+    
+\NormalTok{    comparison\_results[[comparison\_name]] }\OtherTok{\textless{}{-}} \FunctionTok{compare\_breeds}\NormalTok{(}
+\NormalTok{      breed\_subsets[[breed1]],}
+\NormalTok{      breed\_subsets[[breed2]],}
+\NormalTok{      name1,}
+\NormalTok{      name2}
+\NormalTok{    )}
+\NormalTok{  \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Mixed Breed vs Border Collie
+## Method: Welch's t-test (unequal variances assumed)
+## 95% CI for difference (mu1 - mu2): (-4.27, 1.26) weeks
+## Mean difference: -1.51 weeks
+## Conclusion: No significant difference (CI contains 0)
+## Mixed Breed vs West Highland White Terrier
+## Method: Welch's t-test (unequal variances assumed)
+## 95% CI for difference (mu1 - mu2): (-5.79, 3.27) weeks
+## Mean difference: -1.26 weeks
+## Conclusion: No significant difference (CI contains 0)
+## Border Collie vs West Highland White Terrier
+## Method: Welch's t-test (unequal variances assumed)
+## 95% CI for difference (mu1 - mu2): (-4.89, 5.39) weeks
+## Mean difference: 0.25 weeks
+## Conclusion: No significant difference (CI contains 0)
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Comparison summary table}
+\NormalTok{comparison\_table }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}
+  \AttributeTok{Comparison =} \FunctionTok{character}\NormalTok{(),}
+  \AttributeTok{Mean\_Diff =} \FunctionTok{numeric}\NormalTok{(),}
+  \AttributeTok{CI\_Lower =} \FunctionTok{numeric}\NormalTok{(),}
+  \AttributeTok{CI\_Upper =} \FunctionTok{numeric}\NormalTok{(),}
+  \AttributeTok{Significant =} \FunctionTok{character}\NormalTok{(),}
+  \AttributeTok{stringsAsFactors =} \ConstantTok{FALSE}
+\NormalTok{)}
+
+\ControlFlowTok{for}\NormalTok{ (comp\_name }\ControlFlowTok{in} \FunctionTok{names}\NormalTok{(comparison\_results)) \{}
+\NormalTok{  result }\OtherTok{\textless{}{-}}\NormalTok{ comparison\_results[[comp\_name]]}
+  
+\NormalTok{  readable\_comp }\OtherTok{\textless{}{-}} \FunctionTok{gsub}\NormalTok{(}\StringTok{"\_"}\NormalTok{, }\StringTok{" "}\NormalTok{, comp\_name)}
+\NormalTok{  readable\_comp }\OtherTok{\textless{}{-}} \FunctionTok{gsub}\NormalTok{(}\StringTok{" vs "}\NormalTok{, }\StringTok{" vs "}\NormalTok{, tools}\SpecialCharTok{::}\FunctionTok{toTitleCase}\NormalTok{(readable\_comp))}
+  
+\NormalTok{  is\_sig }\OtherTok{\textless{}{-}} \SpecialCharTok{!}\NormalTok{(result}\SpecialCharTok{$}\NormalTok{conf.int[}\DecValTok{1}\NormalTok{] }\SpecialCharTok{\textless{}=} \DecValTok{0} \SpecialCharTok{\&\&}\NormalTok{ result}\SpecialCharTok{$}\NormalTok{conf.int[}\DecValTok{2}\NormalTok{] }\SpecialCharTok{\textgreater{}=} \DecValTok{0}\NormalTok{)}
+  
+\NormalTok{  comparison\_table }\OtherTok{\textless{}{-}} \FunctionTok{rbind}\NormalTok{(comparison\_table, }\FunctionTok{data.frame}\NormalTok{(}
+    \AttributeTok{Comparison =}\NormalTok{ readable\_comp,}
+    \AttributeTok{Mean\_Diff =} \FunctionTok{round}\NormalTok{(}\FunctionTok{diff}\NormalTok{(result}\SpecialCharTok{$}\NormalTok{estimate), }\DecValTok{2}\NormalTok{),}
+    \AttributeTok{CI\_Lower =} \FunctionTok{round}\NormalTok{(result}\SpecialCharTok{$}\NormalTok{conf.int[}\DecValTok{1}\NormalTok{], }\DecValTok{2}\NormalTok{),}
+    \AttributeTok{CI\_Upper =} \FunctionTok{round}\NormalTok{(result}\SpecialCharTok{$}\NormalTok{conf.int[}\DecValTok{2}\NormalTok{], }\DecValTok{2}\NormalTok{),}
+    \AttributeTok{Significant =} \FunctionTok{ifelse}\NormalTok{(is\_sig, }\StringTok{"Yes"}\NormalTok{, }\StringTok{"No"}\NormalTok{)}
+\NormalTok{  ))}
+\NormalTok{\}}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"COMPARISON SUMMARY}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## COMPARISON SUMMARY
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(comparison\_table)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                              Comparison Mean_Diff CI_Lower
+## mean of y                  Mixed Breed vs Border Collie      1.51    -4.27
+## mean of y1   Mixed Breed vs West Highland White Terrier      1.26    -5.79
+## mean of y2 Border Collie vs West Highland White Terrier     -0.25    -4.89
+##            CI_Upper Significant
+## mean of y      1.26          No
+## mean of y1     3.27          No
+## mean of y2     5.39          No
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# ===== 8. EXPORT RESULTS =====}
+
+\FunctionTok{write.csv}\NormalTok{(ci\_table, }\StringTok{"confidence\_intervals.csv"}\NormalTok{, }\AttributeTok{row.names =} \ConstantTok{FALSE}\NormalTok{)}
+\FunctionTok{write.csv}\NormalTok{(comparison\_table, }\StringTok{"breed\_comparisons.csv"}\NormalTok{, }\AttributeTok{row.names =} \ConstantTok{FALSE}\NormalTok{)}
+
+\FunctionTok{cat}\NormalTok{(}\StringTok{"ANALYSIS COMPLETE}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## ANALYSIS COMPLETE
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"Results exported to:}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Results exported to:
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"  {-} confidence\_intervals.csv}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   - confidence_intervals.csv
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{cat}\NormalTok{(}\StringTok{"  {-} breed\_comparisons.csv}\SpecialCharTok{\textbackslash{}n}\StringTok{"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   - breed_comparisons.csv
+\end{verbatim}
+
+\end{document}
